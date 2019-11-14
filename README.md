@@ -124,7 +124,7 @@ to :
       "destination": "srv_api",
       "csrfProtection": false
     },
--> Add cds security annotation 
+-> Add cds security annotation in srv module 
 
 annotate CatalogService with @(requires: 'demouser');
 
