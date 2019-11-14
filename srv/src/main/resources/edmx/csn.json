@@ -61,6 +61,69 @@
       "@Capabilities.DeleteRestrictions.Deletable": false,
       "@Capabilities.InsertRestrictions.Insertable": false,
       "@Capabilities.UpdateRestrictions.Updatable": false,
+      "@UI.Facets": [
+        {
+          "$Type": "UI.CollectionFacet",
+          "Facets": [
+            {
+              "$Type": "UI.ReferenceFacet",
+              "Label": "General Info",
+              "Target": "@UI.Identification"
+            }
+          ],
+          "Label": "Book Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Orders",
+          "Target": "orders/@UI.LineItem"
+        }
+      ],
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "title"
+      },
+      "@UI.HeaderInfo.TypeName": "Book",
+      "@UI.HeaderInfo.TypeNamePlural": "Books",
+      "@UI.Identification": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "title"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "stock"
+          }
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "title"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "stock"
+          }
+        }
+      ],
       "@cds.persistence.name": "CATALOGSERVICE_BOOKS",
       "@readonly": true,
       "query": {
@@ -74,17 +137,38 @@
       },
       "elements": {
         "ID": {
+          "@Common.Label": "Id",
           "@cds.persistence.name": "ID",
           "key": true,
           "type": "cds.Integer"
         },
         "title": {
+          "@Common.Label": "Title",
           "@cds.persistence.name": "TITLE",
           "localized": true,
           "type": "cds.String"
         },
         "author": {
+          "@Common.Label": "Author",
+          "@Common.Text": {
+            "=": "author/name"
+          },
+          "@Common.ValueList.CollectionPath": "Authors",
+          "@Common.ValueList.Label": "Authors",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterOut",
+              "LocalDataProperty": "author_ID",
+              "ValueListProperty": "ID"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "name"
+            }
+          ],
+          "@Common.ValueList.SearchSupported": "true",
           "@cds.persistence.name": "AUTHOR",
+          "@sap.value.list": "fixed-values",
           "type": "cds.Association",
           "target": "CatalogService.Authors",
           "keys": [
@@ -97,6 +181,7 @@
           ]
         },
         "stock": {
+          "@Common.Label": "Stock",
           "@cds.persistence.name": "STOCK",
           "type": "cds.Integer"
         },
@@ -156,8 +241,27 @@
           ]
         },
         "author_ID": {
+          "@Common.Label": "Author",
+          "@Common.Text": {
+            "=": "author/name"
+          },
+          "@Common.ValueList.CollectionPath": "Authors",
+          "@Common.ValueList.Label": "Authors",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterOut",
+              "LocalDataProperty": "author_ID",
+              "ValueListProperty": "ID"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "name"
+            }
+          ],
+          "@Common.ValueList.SearchSupported": "true",
           "@cds.persistence.name": "AUTHOR_ID",
           "@odata.foreignKey4": "author",
+          "@sap.value.list": "fixed-values",
           "type": "cds.Integer"
         }
       },

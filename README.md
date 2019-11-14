@@ -50,5 +50,18 @@ to:
 
 -> Build CDS from Project level and Build DB module
 
+UI Module
+
+-> Add HTML Module with List Report Template and bind with existing CDS OData V2 Service in project
+
+-> Tempalte added additional XSUAA Resource which need to replace with already created one.
+
+--> Add CDS for Fiori Element inside your srv module app with file cat-service-fiori.cds
+
+--> add same sample data in DB for test purpose using db/src/csv/Books.csv file
+
+
+
+
 
 
