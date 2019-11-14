@@ -62,6 +62,10 @@ UI Module
 
 Fiori
  -> Add Navigation Semantic object inside html module "booklist"
+ -> Add Fiori Module from templates with name FioriCAPApplication1-fiori
+ -> Open CommonDataModel.json file add your UI application using WebIDE wizard
+ 
+ 
 
 
 
