@@ -19,7 +19,7 @@ modules:
           name: srv_api
           url: '~{url}'
       - name: FioriCAPApplication1-uaa
-      - name: portal_resources_FioriCAPApplication1
+      - name: FioriCAPApplication1-portal
   - name: FioriCAPApplication1_ui_deployer
     type: com.sap.html5.application-content
     path: FioriCAPApplication1_ui_deployer
@@ -76,8 +76,8 @@ modules:
       memory: 128M
       buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
     requires:
-      - name: portal_resources_FioriCAPApplication1
-      - name: uaa_FioriCAPApplication1
+      - name: FioriCAPApplication1-portal
+      - name: FioriCAPApplication1-uaa
       - name: FioriCAPApplication1_html5_repo_host
       - name: FioriCAPApplication1_ui_deployer
 resources:
@@ -99,7 +99,7 @@ resources:
     type: org.cloudfoundry.existing-service
     parameters:
       service-name: FioriCAPApplication1-uaa
-  - name: portal_resources_FioriCAPApplication1
+  - name: FioriCAPApplication1-portal
     parameters:
       service-plan: standard
       service: portal

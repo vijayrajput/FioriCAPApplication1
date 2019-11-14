@@ -21,10 +21,17 @@ Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with a
 	],
 	"role-templates": [
 		{
-			"name": "demo",
+			"name": "demouser",
 			"description": "Demo Role",
 			"scope-references": [
-				"$XSAPPNAME.demouser","uaa.user"
+				"$XSAPPNAME.demouser"
+			]
+		},
+		{
+			"name": "Token_Exchange",
+			"description": "Token_Exchange",
+			"scope-references": [
+				"uaa.user"
 			]
 		}
 	]
@@ -53,17 +60,17 @@ to:
 UI Module
 
 -> Add HTML Module with List Report Template and bind with existing CDS OData V2 Service in project
-
 -> Tempalte added additional XSUAA Resource which need to replace with already created one.
-
---> Add CDS for Fiori Element inside your srv module app with file cat-service-fiori.cds
-
---> add same sample data in DB for test purpose using db/src/csv/Books.csv file
+-> Add CDS for Fiori Element inside your srv module app with file cat-service-fiori.cds
+-> add same sample data in DB for test purpose using db/src/csv/Books.csv file
 
 Fiori
  -> Add Navigation Semantic object inside html module "booklist"
  -> Add Fiori Module from templates with name FioriCAPApplication1-fiori
  -> Open CommonDataModel.json file add your UI application using WebIDE wizard
+ -> Update MTA file reference  uaa_FioriCAPApplication1 with our existing xsuaa instance : FioriCAPApplication1-uaa
+ -> Update MTA file reference portal_resources_FioriCAPApplication1 with name FioriCAPApplication1-portal
+ -> Build your application and deply to cf space
  
  
 
