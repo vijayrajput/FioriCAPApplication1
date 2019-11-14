@@ -1,0 +1,7 @@
+{
+  "name": "booklist",
+  "description": "",
+  "devDependencies": {
+    "@sap/grunt-sapui5-bestpractice-build": "1.4.2"
+  }
+}

@@ -12,11 +12,24 @@ modules:
       memory: 256M
     requires:
       - name: FioriCAPApplication1_html5_repo_runtime
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv_api
+          url: '~{url}'
+      - name: uaa_FioriCAPApplication1
   - name: FioriCAPApplication1_ui_deployer
     type: com.sap.html5.application-content
     path: FioriCAPApplication1_ui_deployer
     requires:
       - name: FioriCAPApplication1_html5_repo_host
+    build-parameters:
+      requires:
+        - name: booklist
+          artifacts:
+            - './*'
+          target-path: resources/booklist
   - name: FioriCAPApplication1-db
     type: hdb
     path: db
@@ -39,6 +52,21 @@ modules:
         properties:
           JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
       - name: FioriCAPApplication1-uaa
+  - name: booklist
+    type: html5
+    path: booklist
+    build-parameters:
+      builder: grunt
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
 resources:
   - name: FioriCAPApplication1_html5_repo_runtime
     parameters:
@@ -58,3 +86,9 @@ resources:
     type: org.cloudfoundry.existing-service
     parameters:
       service-name: FioriCAPApplication1-uaa
+  - name: uaa_FioriCAPApplication1
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
