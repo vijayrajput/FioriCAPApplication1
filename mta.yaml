@@ -2,7 +2,7 @@ ID: FioriCAPApplication1
 _schema-version: '2.1'
 parameters:
   deploy_mode: html5-repo
-version: 0.0.2
+version: 0.0.3
 modules:
   - name: FioriCAPApplication1_appRouter
     type: approuter.nodejs

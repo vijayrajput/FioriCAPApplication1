@@ -105,6 +105,31 @@ Adding Security
 -> Build the application and deploy to SCP  
 -> Add 'demouser' role to 'DemoUser' Role Collection
 
+> On Service Level
+-> Update xs-app.json file for booklist (ui module)
+from :
+ {
+      "source": "/srv_api/(.*)$",
+      "target": "$1",
+      "authenticationType": "none",
+      "destination": "srv_api",
+      "csrfProtection": false
+    },
+    
+to :
+ {
+      "source": "/srv_api/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "destination": "srv_api",
+      "csrfProtection": false
+    },
+-> Add cds security annotation 
+
+annotate CatalogService with @(requires: 'demouser');
+
+  
+
 
 
  

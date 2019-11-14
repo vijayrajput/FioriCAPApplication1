@@ -3,6 +3,7 @@
   "definitions": {
     "CatalogService": {
       "kind": "service",
+      "@requires": "demouser",
       "@source": "srv/cat-service.cds"
     },
     "CatalogService.Authors": {
