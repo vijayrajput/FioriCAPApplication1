@@ -72,6 +72,23 @@ Fiori
  -> Update MTA file reference portal_resources_FioriCAPApplication1 with name FioriCAPApplication1-portal
  -> Build your application and deply to cf space
  
+ Central Fiori Launchpad
+ -> Create destination in Sub-Account Level
+sap-platform=CF
+URL=<App_router_URL>
+Name=PortalDemoApps
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=Portal Demo Application
+
+-> Subscribe Central Portal Service and access it
+-> Create new app pointing to Fiori UI booklist application , UI5 component, Navigation and Visualization
+-> Add this app to Everyone Role
+
+
+
+ 
  
 
 
