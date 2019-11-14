@@ -1,5 +1,5 @@
 ID: FioriCAPApplication1
-_schema-version: "2.1"
+_schema-version: '2.1'
 parameters:
   deploy_mode: html5-repo
 version: 0.0.1
@@ -33,12 +33,11 @@ modules:
     provides:
       - name: srv_api
         properties:
-          url: ${default-url}
+          url: '${default-url}'
     requires:
       - name: FioriCAPApplication1-db-hdi-container
         properties:
-          JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml:
-            {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
+          JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
       - name: FioriCAPApplication1-uaa
 resources:
   - name: FioriCAPApplication1_html5_repo_runtime
@@ -54,12 +53,8 @@ resources:
   - name: FioriCAPApplication1-db-hdi-container
     type: com.sap.xs.hdi-container
     properties:
-      hdi-container-name: ${service-name}
+      hdi-container-name: '${service-name}'
   - name: FioriCAPApplication1-uaa
-    type: org.cloudfoundry.managed-service
+    type: org.cloudfoundry.existing-service
     parameters:
-      service-plan: application
-      service: xsuaa
-      config:
-        xsappname: FioriCAPApplication1-${space}
-        tenant-mode: dedicated
+      service-name: FioriCAPApplication1-uaa
