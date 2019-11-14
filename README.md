@@ -89,12 +89,21 @@ Description=Portal Demo Application
 
 
 Adding Security
-> On Central Fiori Lauchpad
+> On Central Fiori Lauchpad Level
 -> Remove application from Everyone Role
 -> Add new Role - DemoUser and add Book application
 -> Update Portal site with DemoUser Role
 -> Add your user to DemoUser Role from SCP Cockpit 
 
+> On UI5 application Level
+-> Add following information to books manifest.json file
+"sap.platform.cf": {
+        "oAuthScopes": [
+            "$XSAPPNAME.demouser"
+        ]
+    }
+-> Build the application and deploy to SCP  
+-> Add 'demouser' role to 'DemoUser' Role Collection
 
 
 

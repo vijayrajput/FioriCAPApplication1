@@ -166,5 +166,10 @@
 	},
 	"sap.platform.hcp": {
 		"uri": ""
-	}
+	},
+	"sap.platform.cf": {
+        "oAuthScopes": [
+            "$XSAPPNAME.demouser"
+        ]
+    }
 }
