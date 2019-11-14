@@ -1,0 +1,65 @@
+ID: FioriCAPApplication1
+_schema-version: "2.1"
+parameters:
+  deploy_mode: html5-repo
+version: 0.0.1
+modules:
+  - name: FioriCAPApplication1_appRouter
+    type: approuter.nodejs
+    path: FioriCAPApplication1_appRouter
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: FioriCAPApplication1_html5_repo_runtime
+  - name: FioriCAPApplication1_ui_deployer
+    type: com.sap.html5.application-content
+    path: FioriCAPApplication1_ui_deployer
+    requires:
+      - name: FioriCAPApplication1_html5_repo_host
+  - name: FioriCAPApplication1-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: FioriCAPApplication1-db-hdi-container
+  - name: FioriCAPApplication1-srv
+    type: java
+    path: srv
+    parameters:
+      memory: 1024M
+    provides:
+      - name: srv_api
+        properties:
+          url: ${default-url}
+    requires:
+      - name: FioriCAPApplication1-db-hdi-container
+        properties:
+          JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml:
+            {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
+      - name: FioriCAPApplication1-uaa
+resources:
+  - name: FioriCAPApplication1_html5_repo_runtime
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: FioriCAPApplication1_html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: FioriCAPApplication1-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: ${service-name}
+  - name: FioriCAPApplication1-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: application
+      service: xsuaa
+      config:
+        xsappname: FioriCAPApplication1-${space}
+        tenant-mode: dedicated
