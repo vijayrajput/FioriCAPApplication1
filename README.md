@@ -88,6 +88,15 @@ Description=Portal Demo Application
 -> Demo Group and add app to this group
 
 
+Adding Security
+> On Central Fiori Lauchpad
+-> Remove application from Everyone Role
+-> Add new Role - DemoUser and add Book application
+-> Update Portal site with DemoUser Role
+-> Add your user to DemoUser Role from SCP Cockpit 
+
+
+
 
  
  
