@@ -25,6 +25,19 @@
 		"sourceTemplate": {
 			"id": "html5moduletemplates.smartTemplateModule",
 			"version": "1.40.12"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"intent1": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "books",
+					"action": "display",
+					"title": ""
+				}
+			}
 		}
 	},
 	"sap.ui": {
@@ -42,10 +55,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_belize"
-		]
+		"supportedThemes": ["sap_hcb", "sap_belize"]
 	},
 	"sap.ui5": {
 		"resources": {

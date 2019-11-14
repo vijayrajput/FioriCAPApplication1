@@ -60,6 +60,9 @@ UI Module
 
 --> add same sample data in DB for test purpose using db/src/csv/Books.csv file
 
+Fiori
+ -> Add Navigation Semantic object inside html module "booklist"
+
 
 
 
