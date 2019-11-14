@@ -48,4 +48,7 @@ to:
     parameters:
       service-name: FioriCAPApplication1-uaa
 
+-> Build CDS from Project level and Build DB module
+
+
 
