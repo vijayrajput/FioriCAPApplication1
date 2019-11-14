@@ -85,6 +85,7 @@ Description=Portal Demo Application
 -> Subscribe Central Portal Service and access it
 -> Create new app pointing to Fiori UI booklist application , UI5 component, Navigation and Visualization
 -> Add this app to Everyone Role
+-> Demo Group and add app to this group
 
 
 
