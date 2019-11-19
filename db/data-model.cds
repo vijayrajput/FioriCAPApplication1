@@ -1,7 +1,7 @@
 namespace my.bookshop;
 using { User, Country, managed } from '@sap/cds/common';
 
-entity Books {
+entity Books: managed {
   key ID : Integer;
   title  : localized String;
   author : Association to Authors;
