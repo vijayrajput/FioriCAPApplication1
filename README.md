@@ -182,9 +182,10 @@ annotate CatalogService.Books with @(
 );
 ```
 
-Add some sample data in DB for test purpose using [db/src/csv/Books.csv](db/src/csv/Books.csv) file
+Add some sample data in DB for test purpose using [db/src/csv/Books.csv](db/src/csv/Books.csv) file.
+Test your html5 module from WebIDE testing tools.
 
-Fiori
+### 5. Add Fiori capabilties in project
  -> Add Navigation Semantic object inside html module "booklist"
  -> Add Fiori Module from templates with name FioriCAPApplication1-fiori
  -> Open CommonDataModel.json file add your UI application using WebIDE wizard
@@ -208,7 +209,7 @@ Description=Portal Demo Application
 -> Demo Group and add app to this group
 
 
-Adding Security
+### 6. Adding security in project
 > On Central Fiori Lauchpad Level
 -> Remove application from Everyone Role
 -> Add new Role - DemoUser and add Book application
