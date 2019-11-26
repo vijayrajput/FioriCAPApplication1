@@ -47,11 +47,11 @@ Make sure to have the following:
 ### 3. Create Project from WebIDE Template
 
 Use WebIDE Template `SAP Cloud Platform Business Application` to start the project structure 
-<picture of WebIDE>
+<p align="center"><img width="480" src="res/pic_projectTemplate.png"> </p>
 
 ### 4. XSUAA Instance from SCP Cockpit
 
-Create Manually service instance UAA instance - `FioriCAPApplication1-uaa`  with `application` plan and following security setting
+Create service instance for XSUAA service manually from SCP Cockpit with name - `FioriCAPApplication1-uaa`  plan - `application` and following security setting
 ```
 {
 	"xsappname": "FioriCAPApplication1",
@@ -112,9 +112,11 @@ Test your `srv` module using WebIDE testing tools.
 ### 5. Add UI Module in project
 
 Add HTML Module in project with List Report HTML5 Template
-<pic of template>
+<p align="center"><img width="480" src="res/pic_html5module.png"> </p>
+<p align="center"><img width="480" src="res/pic_html5Template.png"> </p>
+
 and bind with existing CDS OData V2 Service in project
-<pic of Data Binding>
+<p align="center"><img width="480" src="res/pic_html5Databinding.png"> </p>
 	
 Tempalte added additional XSUAA Resource in `mta.yaml` file which need to replace with already created one `FioriCAPApplication1-uaa`.
 
