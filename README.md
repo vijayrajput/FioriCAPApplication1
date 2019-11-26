@@ -86,7 +86,7 @@ Create Manually service instance UAA instance - `FioriCAPApplication1-uaa`  with
 }
 ```
 
-update Project file `mta.yaml` resource `FioriCAPApplication1-uaa` 
+update Project file `mta.yaml` resource `FioriCAPApplication1-uaa` with existing service, created in previous step
 
 From: 
 ```
@@ -106,14 +106,83 @@ to:
     parameters:
       service-name: FioriCAPApplication1-uaa
 ```
--> Build CDS from Project level and Build DB module
+`Build CDS` from Project level and `Build` DB module.
+Test your `srv` module using WebIDE testing tools.
 
-UI Module
+### 5. Add UI Module in project
 
--> Add HTML Module with List Report Template and bind with existing CDS OData V2 Service in project
--> Tempalte added additional XSUAA Resource which need to replace with already created one.
--> Add CDS for Fiori Element inside your srv module app with file cat-service-fiori.cds
--> add same sample data in DB for test purpose using db/src/csv/Books.csv file
+Add HTML Module in project with List Report HTML5 Template
+<pic of template>
+and bind with existing CDS OData V2 Service in project
+<pic of Data Binding>
+	
+Tempalte added additional XSUAA Resource in `mta.yaml` file which need to replace with already created one `FioriCAPApplication1-uaa`.
+
+checked the template code for new module, you find that now HTML5 module is using HTML5 repository service to host the application from central place. Details can be found in [SAP Blog](https://blogs.sap.com/2018/12/11/programming-applications-in-sap-cloud-platform).
+
+In this example we have use Fiori Element to build UI, these Fiori element can be added via OData annotation by extending the exsiting cds model. Added new file `cat-service-fiori.cds` inside srv module
+
+```
+using CatalogService from '../srv/cat-service';
+
+annotate CatalogService.Books with {
+  ID 
+    @Common.Label : 'Id';
+  title 
+    @Common.Label : 'Title';
+  stock 
+    @Common.Label : 'Stock';
+  author
+    @Common.Text: "author/name"
+    @Common.Label : 'Author'
+    @sap.value.list: 'fixed-values'
+    @Common.ValueList: { 
+      CollectionPath: 'Authors',
+      Label: 'Authors',
+      SearchSupported: 'true',
+      Parameters: [
+        { $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'author_ID', ValueListProperty: 'ID'},
+        { $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'name'},
+      ]
+    };
+    
+};
+
+annotate CatalogService.Books with @(
+  UI.LineItem: [ 
+    {$Type: 'UI.DataField', Value: ID},
+    {$Type: 'UI.DataField', Value: title},
+    {$Type: 'UI.DataField', Value: stock},
+  ],
+  
+  UI.HeaderInfo: {
+    Title: { Value: title },
+    TypeName:'Book', 
+        TypeNamePlural:'Books'
+  },
+  
+  UI.Identification:
+  [
+    {$Type: 'UI.DataField', Value: ID},
+    {$Type: 'UI.DataField', Value: title},
+    {$Type: 'UI.DataField', Value: stock}
+  ],
+  
+  UI.Facets:
+  [
+    {
+      $Type:'UI.CollectionFacet', 
+      Facets: [
+            { $Type:'UI.ReferenceFacet', Label: 'General Info', Target: '@UI.Identification' }
+          ],
+      Label:'Book Details',		
+    },
+    {$Type:'UI.ReferenceFacet', Label: 'Orders', Target: 'orders/@UI.LineItem'},
+  ]	
+);
+```
+
+Add some sample data in DB for test purpose using [db/src/csv/Books.csv](db/src/csv/Books.csv) file
 
 Fiori
  -> Add Navigation Semantic object inside html module "booklist"
