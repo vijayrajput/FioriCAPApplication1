@@ -42,21 +42,16 @@ Make sure to have the following:
    You will get a confirmation message:
    <p align="center"><img width="320" src="res/pic204.png" alt="Confirmation about stored preferences"> </p>
 
-2.2. Click on the preferences icon on the left and select `Extensions`. Next, enter `HANA Database Dev` in the search box and switch `ON` the `SAP HANA Database Devlopment Tools`. Finally click on the `Save` button at the bottom to enable the tools in your workspace.
-
-   <p align="center"><img width="640" src="res/pic201.png" alt="Web IDE workspace"> </p>
-
-   In the pop-up click on **Refresh**, so that the Web IDE can be re-started with the new settings.
-
-   <p align="center"><img width="320" src="res/pic202.png" alt="Refresh Web IDE workspace"> </p>
    
    
-## Create Project from WebIDE Template
+### 3. Create Project from WebIDE Template
 
-Use WebIDE Template : SAP Cloud Platform Business Application to start the project structure 
+Use WebIDE Template `SAP Cloud Platform Business Application` to start the project structure 
+<picture of WebIDE>
 
+### 4. XSUAA Instance from SCP Cockpit
 
-Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with application plan and following security setting
+Create Manually service instance UAA instance - `FioriCAPApplication1-uaa`  with `application` plan and following security setting
 ```
 {
 	"xsappname": "FioriCAPApplication1",
@@ -91,7 +86,7 @@ Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with a
 }
 ```
 
-and update mta.yaml -> resource "FioriCAPApplication1-uaa"
+update Project file `mta.yaml` resource `FioriCAPApplication1-uaa` 
 
 From: 
 ```
