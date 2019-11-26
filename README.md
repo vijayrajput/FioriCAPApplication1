@@ -1,10 +1,60 @@
 # FioriCAPApplication1
 Demo Fiori Application with CAP Model
 
+## Objective
+
+In this exercise you will learn how to work with SAP CAP Model to build Fiori application with define security in SAP Cloud Platform Cloud Foundry Envirnment.
+
+## Prequisites
+
+Make sure to have the following:
+
+1. An SAP Cloud Platform (Cloud Foundry) account containing at least the services:
+   - SAP HANA Database (Standard or Enterprise)
+   - SAP HANA Schemas & HDI Containers (hdi-shared)
+   - Portal Service
+2. An SAP Cloud Platform (Neo) account that provides access to at least SAP Web IDE.
+
+## Exercise description
+
+
+### 1. Log on to SAP Web IDE
+
+- If your are unsure where to find the Web IDE URL, follow this [tutorial](https://developers.sap.com/tutorials/sapui5-webide-open-webide.html).
+- Web IDE opens up and shows your workspace. The workspace is empty if you use it for the first time.
+
+   <p align="center"><img width="480" src="res/pic102.png" alt="Web IDE workspace"> </p>
+   
+### 2. Setup workspace settings
+
+2.1. Click on `Cloud Foundry` in the `Workspace Preferences`
+
+   - In the field for the `API endpoint` select the the URL that matches your Cloud Foundry account (usually the first URL).  If you are asked to logon, use your user/password.
+
+   - Same for the values for `Organization` and `Space`: chose the values matching to your account.
+
+   - Should the be an error on the page saying that the builder is outed, press the `Reinstall Builder` button.
+
+   - Click on the **Save** button, even if you haven't changed anything.
+
+   <p align="center"><img width="480" src="res/pic203.png" alt="Enter Cloud Foundry API endpoint"> </p>
+
+   You will get a confirmation message:
+   <p align="center"><img width="320" src="res/pic204.png" alt="Confirmation about stored preferences"> </p>
+
+2.2. Click on the preferences icon on the left and select `Extensions`. Next, enter `HANA Database Dev` in the search box and switch `ON` the `SAP HANA Database Devlopment Tools`. Finally click on the `Save` button at the bottom to enable the tools in your workspace.
+
+   <p align="center"><img width="640" src="res/pic201.png" alt="Web IDE workspace"> </p>
+
+   In the pop-up click on **Refresh**, so that the Web IDE can be re-started with the new settings.
+
+   <p align="center"><img width="320" src="res/pic202.png" alt="Refresh Web IDE workspace"> </p>
+   
+   
 ## Create Project from WebIDE Template
 
-Use WEbIDE Template : SAP Cloud Platform Business Application t start the project strucutre 
-* 
+Use WebIDE Template : SAP Cloud Platform Business Application to start the project structure 
+
 
 Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with application plan and following security setting
 ```
