@@ -1,12 +1,13 @@
 # FioriCAPApplication1
 Demo Fiori Application with CAP Model
 
-## Create PRoject from WebIDE Template
-* Use WEbIDE Template : SAP Cloud Platform Business Application
+## Create Project from WebIDE Template
+
+Use WEbIDE Template : SAP Cloud Platform Business Application t start the project strucutre 
 * 
 
 Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with application plan and following security setting
-
+```
 {
 	"xsappname": "FioriCAPApplication1",
 	"tenant-mode": "dedicated",
@@ -38,10 +39,12 @@ Create Manually service instance UAA instance - FioriCAPApplication1-uaa  with a
 		}
 	]
 }
+```
 
 and update mta.yaml -> resource "FioriCAPApplication1-uaa"
 
 From: 
+```
   - name: FioriCAPApplication1-uaa
     type: org.cloudfoundry.managed-service
     parameters:
@@ -50,13 +53,14 @@ From:
       config:
         xsappname: FioriCAPApplication1-${space}
         tenant-mode: dedicated
-
+```
 to:
+```
   - name: FioriCAPApplication1-uaa
     type: org.cloudfoundry.existing-service
     parameters:
       service-name: FioriCAPApplication1-uaa
-
+```
 -> Build CDS from Project level and Build DB module
 
 UI Module
@@ -99,17 +103,20 @@ Adding Security
 
 > On UI5 application Level
 -> Add following information to books manifest.json file
+```
 "sap.platform.cf": {
         "oAuthScopes": [
             "$XSAPPNAME.demouser"
         ]
     }
+```    
 -> Build the application and deploy to SCP  
 -> Add 'demouser' role to 'DemoUser' Role Collection
 
 > On Service Level
 -> Update xs-app.json file for booklist (ui module)
 from :
+```
  {
       "source": "/srv_api/(.*)$",
       "target": "$1",
@@ -117,8 +124,9 @@ from :
       "destination": "srv_api",
       "csrfProtection": false
     },
-    
+ ```   
 to :
+```
  {
       "source": "/srv_api/(.*)$",
       "target": "$1",
@@ -126,9 +134,12 @@ to :
       "destination": "srv_api",
       "csrfProtection": false
     },
+```    
 -> Add cds security annotation in srv module 
 
+```
 annotate CatalogService with @(requires: 'demouser');
+```
 
   
 
