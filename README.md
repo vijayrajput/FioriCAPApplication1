@@ -1,5 +1,7 @@
 # FioriCAPApplication1
-Demo Fiori Application with CAP 
+Demo Fiori Application with CAP Model
+
+## Create PRoject from WebIDE Template
 * Use WEbIDE Template : SAP Cloud Platform Business Application
 * 
 
