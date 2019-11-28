@@ -190,19 +190,19 @@ Test your html5 module from WebIDE testing tools.
 
 ### 5. Add Fiori capabilties in project
 
- Add Navigation Semantic object inside html module `booklist`
- <pic>
+ Add Navigation Semantic object inside html module `booklist`, file `manifest.json`  
+ <p align="center"><img width="480" src="res/navigation.png"> </p>
  
- Add new Fiori Module in Project name FioriCAPApplication1-fiori
+ Add new `Fiori Launchpad Site Module` in Project with name `FioriCAPApplication1-fiori`
  
- <pic>
+ <p align="center"><img width="480" src="res/launchpad.png"> </p>
 	
  Open [CommonDataModel.json](FioriCAPApplication1-fiori/portal-site/CommonDataModel.json) as Launchpad Editor and add your UI application using WebIDE wizard
  
- <pic>
+ <p align="center"><img width="480" src="res/site.png"> </p>
 	
 Tempalte added additional XSUAA Resource in `mta.yaml` file which need to replace with already created one `FioriCAPApplication1-uaa`.
-Update `mta.yaml` file reference portal_resources_FioriCAPApplication1 with name FioriCAPApplication1-portal for naming srtandard
+Update `mta.yaml` file reference of `portal_resources_FioriCAPApplication1` with name `FioriCAPApplication1-portal` for naming standard
 
  Build your application and deply to cf space.
  
@@ -220,10 +220,44 @@ Authentication=NoAuthentication
 Description=Portal Demo Application
 ```
 
--> Subscribe Central Portal Service and access it
--> Create new app pointing to Fiori UI booklist application , UI5 component, Navigation and Visualization
--> Add this app to Everyone Role
--> Demo Group and add app to this group
+In the side navigation panel of your subaccount, click `Subscriptions` and enter `Portal` in the search bar. Then click the Portal tile and Go to Application. The `Site Manager` opens with the Site Directory in focus.
+Click the icon in the side panel of the Site Manager to open the `Content Manager`.
+In the Content Manager, click + New > App
+
+<p align="center"><img width="480" src="res/23_add_app.png"> </p>
+
+In `properties` tab enter following
+
+Title:	Books
+System:	`DestinationName` created in previous step . Note that it may take several minutes until the destination that you created in step 2 appears in the System list.
+App UI Technology :	SAPUI5 (this is the type of app that you are adding).
+SAPUI5 Component Name :	booklist - this is the registered name of the SAPUI5 component. To get this name, ask your developer to open the component.js file in SAP Web IDE - it is defined in the component.js file without the .component suffix as shown here: Find component name
+
+<p align="center"><img width="480" src="res/component.png"> </p>
+
+Your screen will look like this:
+<p align="center"><img width="480" src="res/BookApp.png"> </p>
+
+Click the `Navigation` tab and enter the following information
+
+
+<p align="center"><img width="480" src="res/BookNavigation.png"> </p>
+
+Click the `Visualization` tab, Enter following information
+
+<p align="center"><img width="480" src="res/BookVis.png"> </p>
+
+Click the Everyone role to open the Role editor edit add Application `Books`
+<p align="center"><img width="480" src="res/EveryRole.png"> </p>
+
+Click + New in the Content Manager and click Group to open the Group editor.
+
+<p align="center"><img width="480" src="res/30_select_group.png.png"> </p>
+
+In the Assignments panel on the right, search for your `Books` app and the click the + to assign your app to this group.
+save the configuration.
+
+Open any Sites which include lauchpad. View the application title. 
 
 
 ### 6. Adding security in project
