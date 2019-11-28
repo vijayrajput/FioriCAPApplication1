@@ -4,7 +4,7 @@ Demo Fiori Application with CAP Model
 ## Objective
 
 In this exercise you will learn how to work with SAP CAP Model to build Fiori application with define security in SAP Cloud Platform Cloud Foundry Environment. Following diagram display the architecture for the sample
-<p align="center"><img width="550" src="res/Architecture.PNG" alt="Web IDE workspace"> </p>
+<p align="center"><img width="750" src="res/Architecture.PNG" alt="Web IDE workspace"> </p>
 
 ## Prequisites
 
