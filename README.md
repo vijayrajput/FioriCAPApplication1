@@ -189,15 +189,28 @@ Add some sample data in DB for test purpose using [db/src/csv/Books.csv](db/src/
 Test your html5 module from WebIDE testing tools.
 
 ### 5. Add Fiori capabilties in project
- -> Add Navigation Semantic object inside html module "booklist"
- -> Add Fiori Module from templates with name FioriCAPApplication1-fiori
- -> Open CommonDataModel.json file add your UI application using WebIDE wizard
- -> Update MTA file reference  uaa_FioriCAPApplication1 with our existing xsuaa instance : FioriCAPApplication1-uaa
- -> Update MTA file reference portal_resources_FioriCAPApplication1 with name FioriCAPApplication1-portal
- -> Build your application and deply to cf space
+
+ Add Navigation Semantic object inside html module `booklist`
+ <pic>
  
- Central Fiori Launchpad
- -> Create destination in Sub-Account Level
+ Add new Fiori Module in Project name FioriCAPApplication1-fiori
+ 
+ <pic>
+	
+ Open [CommonDataModel.json](FioriCAPApplication1-fiori/portal-site/CommonDataModel.json) as Launchpad Editor and add your UI application using WebIDE wizard
+ 
+ <pic>
+	
+Tempalte added additional XSUAA Resource in `mta.yaml` file which need to replace with already created one `FioriCAPApplication1-uaa`.
+Update `mta.yaml` file reference portal_resources_FioriCAPApplication1 with name FioriCAPApplication1-portal for naming srtandard
+
+ Build your application and deply to cf space.
+ 
+ Run the application Router
+ 
+ ### 6. Central Fiori Launchpad Configuration
+ Create destination in Sub-Account Level with following information
+```
 sap-platform=CF
 URL=<App_router_URL>
 Name=PortalDemoApps
@@ -205,6 +218,7 @@ ProxyType=Internet
 Type=HTTP
 Authentication=NoAuthentication
 Description=Portal Demo Application
+```
 
 -> Subscribe Central Portal Service and access it
 -> Create new app pointing to Fiori UI booklist application , UI5 component, Navigation and Visualization
