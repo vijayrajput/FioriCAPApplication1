@@ -228,10 +228,10 @@ In the Content Manager, click + New > App
 
 In `properties` tab enter following
 
-Title:	Books
-System:	`DestinationName` created in previous step . Note that it may take several minutes until the destination that you created in step 2 appears in the System list.
-App UI Technology :	SAPUI5 (this is the type of app that you are adding).
-SAPUI5 Component Name :	booklist - this is the registered name of the SAPUI5 component. To get this name, ask your developer to open the component.js file in SAP Web IDE - it is defined in the component.js file without the .component suffix as shown here: Find component name
+ - Title:	Books
+ - System:	`DestinationName` created in previous step . Note that it may take several minutes until the destination that you created in step 2 appears in the System list.
+ - App UI Technology :	SAPUI5 (this is the type of app that you are adding).
+ - SAPUI5 Component Name :	booklist - this is the registered name of the SAPUI5 component. To get this name, ask your developer to open the component.js file in SAP Web IDE - it is defined in the component.js file without the .component suffix as shown here: Find component name
 
 <p align="center"><img width="480" src="res/component.png"> </p>
 
@@ -252,23 +252,25 @@ Click the Everyone role to open the Role editor edit add Application `Books`
 
 Click + New in the Content Manager and click Group to open the Group editor.
 
-<p align="center"><img width="480" src="res/30_select_group.png.png"> </p>
+<p align="center"><img width="480" src="res/30_select_group.png"> </p>
 
-In the Assignments panel on the right, search for your `Books` app and the click the + to assign your app to this group.
-save the configuration.
+ - In the Assignments panel on the right, search for your `Books` app and the click the + to assign your app to this group.
+ - save the configuration.
 
-Open any Sites which include lauchpad. View the application title. 
+ - Open any Sites which include lauchpad. View the application title. 
 
 
-### 6. Adding security in project
-> On Central Fiori Lauchpad Level
--> Remove application from Everyone Role
--> Add new Role - DemoUser and add Book application
--> Update Portal site with DemoUser Role
--> Add your user to DemoUser Role from SCP Cockpit 
+### 7. Adding security in project
 
-> On UI5 application Level
--> Add following information to books manifest.json file
+#### Security at Central Fiori Lauchpad Level
+
+ - Remove portal application `Books` from Everyone Role
+ - Add new Role  `DemoUser` and add Book application in this Role
+ - Update Portal site with `DemoUser` Role
+ - Add your user to `DemoUser` Role from SCP Cockpit in Subaccount -> Security -> Trust Configuration for particular IDP 
+
+#### Security at UI5 application Level
+ - Add following information to UI application `books` in `manifest.json` file
 ```
 "sap.platform.cf": {
         "oAuthScopes": [
@@ -276,11 +278,11 @@ Open any Sites which include lauchpad. View the application title.
         ]
     }
 ```    
--> Build the application and deploy to SCP  
--> Add 'demouser' role to 'DemoUser' Role Collection
+ - Build the application and deploy to SCP  
+ - Add 'demouser' role from Application to 'DemoUser' Role Collection in Subaccount -> Security -> Role Collection
 
-> On Service Level
--> Update xs-app.json file for booklist (ui module)
+#### Security at application Service Level
+ - Update xs-app.json file for booklist (ui module) to pass security information to Service layer
 from :
 ```
  {
@@ -301,7 +303,7 @@ to :
       "csrfProtection": false
     },
 ```    
--> Add cds security annotation in srv module 
+-> Add [cat-service-auth.cds][srv/cat-service-auth.cds] security annotation inside srv module 
 
 ```
 annotate CatalogService with @(requires: 'demouser');
