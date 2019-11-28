@@ -270,7 +270,7 @@ Click + New in the Content Manager and click Group to open the Group editor.
  - Add your user to `DemoUser` Role from SCP Cockpit in Subaccount -> Security -> Trust Configuration for particular IDP 
 
 #### Security at UI5 application Level
- - Add following information to UI application `books` in `manifest.json` file
+ - Add following information to UI application `booklist` in `manifest.json` file
 ```
 "sap.platform.cf": {
         "oAuthScopes": [
@@ -279,10 +279,10 @@ Click + New in the Content Manager and click Group to open the Group editor.
     }
 ```    
  - Build the application and deploy to SCP  
- - Add 'demouser' role from Application to 'DemoUser' Role Collection in Subaccount -> Security -> Role Collection
+ - Add `demouser` role from Application to `DemoUser` Role Collection in Subaccount -> Security -> Role Collection
 
 #### Security at application Service Level
- - Update xs-app.json file for booklist (ui module) to pass security information to Service layer
+ - Update [xs-app.json](booklist/xs-app.json) file for `booklist` (ui module) to pass security information to Service layer
 from :
 ```
  {
@@ -303,7 +303,7 @@ to :
       "csrfProtection": false
     },
 ```    
--> Add [cat-service-auth.cds][srv/cat-service-auth.cds] security annotation inside srv module 
+-> Add [cat-service-auth.cds](srv/cat-service-auth.cds) security annotation inside srv module 
 
 ```
 annotate CatalogService with @(requires: 'demouser');
