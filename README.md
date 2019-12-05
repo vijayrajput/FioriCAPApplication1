@@ -50,6 +50,14 @@ Make sure to have the following:
 Use WebIDE Template `SAP Cloud Platform Business Application` to start the project structure 
 <p align="center"><img width="480" src="res/pic_projectTemplate.PNG"> </p>
 
+Check Option : Use HTML5 Application Repository
+
+<p align="center"><img width="480" src="res/HtmlRepository.png"> </p>
+
+Check Option : Enable User Authentication (UAA)
+
+<p align="center"><img width="480" src="res/UAAoption.png"> </p>
+
 ### 4. XSUAA Instance from SCP Cockpit
 
 Create service instance for XSUAA service manually from SCP Cockpit with name - `FioriCAPApplication1-uaa`  plan - `application` and following security setting
