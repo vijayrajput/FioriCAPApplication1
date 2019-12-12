@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
+  <!--<parent>
     <groupId>com.sap.cloud.servicesdk.prov</groupId>
     <artifactId>projects-parent-odatav2</artifactId>
     <version>1.34.1</version>
-  </parent>
+  </parent>-->
   <artifactId>FioriCAPApplication1-srv</artifactId>
   <groupId>customer</groupId>
   <version>1.0-SNAPSHOT</version>
@@ -146,6 +146,15 @@
         </property>
       </activation>
       <dependencies>
+      	<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-feature-cloudfoundry</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-feature-hana</artifactId>
+		</dependency>
         <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
@@ -201,6 +210,30 @@
                 </lifecycleMappingMetadata>
               </configuration>
             </plugin>
+            <!-- GENERATE POJO INTERFACES -->
+			<plugin>
+				<groupId>com.sap.cds</groupId>
+				<artifactId>cds4j-maven-plugin</artifactId>
+				<version>1.4.1</version>
+				<configuration>
+					<outputDirectory>src/gen</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>cds4j-generate-model</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<csnFile>csn.json</csnFile>
+							<excludes>
+								<exclude>localized.*</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
           </plugins>
         </pluginManagement>
       </build>
