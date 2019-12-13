@@ -317,7 +317,79 @@ to :
 annotate CatalogService with @(requires: 'demouser');
 ```
 
-  
+### 8. Adding Custom Logic with DB Operations
+
+ - Extension Class can created by WebIDE Template
+ - Right click on srv module and create `Entity Operation Hooks`
+ <p align="center"><img width="480" src="res/ECustomOpration1.png"> </p> 
+
+- Choose Entity which need to be extended 
+ <p align="center"><img width="480" src="res/ECustomOpration2.png"> </p> 
+
+#### Extension via DataSourceHandler
+
+This type of Extension is for doing simple database operation like insert, Delete, Read , Update with Entity Key
+Let's create OData Function to read Book data from BookId.
+
+This will generate new Java Class [BooksHooksHandler.java](srv/src/main/java/com/shell/cds/demo/handlers/catalogservice/BooksHooksHandler.java) for Handling Extension for Book Entity
+
+- Update Catalog Service CDS model to include function defination in file  [cat-service.cds](srv/cat-service.cds)
+
+```
+function GetBookDetails(id:Integer) returns Books;
+```
+Open previously created Java Class and add following Code
+
+```
+	@Function(serviceName = "CatalogService", Name = "GetBookDetails")
+	public OperationResponse getBooks(OperationRequest functionRequest, ExtensionHelper extensionHelper) {
+		OperationResponse opResponse;
+
+		try {
+			// Retrieve the parameters of the function from the
+			// OperationRequest object
+			Map<String, Object> parameters = functionRequest.getParameters();
+
+			//Get the DataSourceHandler object from the ExtensionHelper. This is required
+			//to execute operations on the local HANA database
+			DataSourceHandler handler = extensionHelper.getHandler();
+
+			//Retrieve the Order ID from the request
+			Map<String, Object> booksKey = new HashMap<String, Object>();
+			booksKey.put("ID", String.valueOf(parameters.get("id")));
+
+			List<String> bookElements = Arrays.asList("ID","title","stock");
+
+			//Read the Order information from the local HANA database
+			EntityData bookData = handler.executeRead("Books", booksKey, bookElements);
+			List<EntityData> bookList = new ArrayList<EntityData>();
+			bookList.add(bookData);
+			// Return an instance of OperationResponse containing the list of book data
+			opResponse = OperationResponse.setSuccess().setEntityData(bookList).response();
+
+		} catch (Exception e) {
+			log.error("Error in GetBook: " + e.getMessage());
+			// Return an instance of OperationResponse containing the error in
+			// case of failure
+			ErrorResponse errorResponse = ErrorResponse.getBuilder()
+					.setMessage(e.getMessage())
+					.setCause(e)
+					.response();
+
+			opResponse = OperationResponse.setError(errorResponse);
+		}
+		return opResponse;
+	}
+```
+run srv with following URL
+```
+/odata/v2/CatalogService/GetBookDetails?id=123
+```
+
+Detail operation support from DataSourceHandler is provided in [SCP Cloud SDK  API help](https://help.sap.com/doc/95d074a0671142da8dde4e6a29e622a9/Cloud/en-US/index.html?com/sap/cloud/sdk/service/prov/api/annotations/package-summary.html)
+
+More details operation details are provide in CAP documentation ???
+
 
 
 
