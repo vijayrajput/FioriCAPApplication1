@@ -391,11 +391,86 @@ Detail operation support from DataSourceHandler is provided in [SCP Cloud SDK  A
 More details operation details are provide in CAP documentation ???
 
 
+#### Extension via CDSDataSourceHandler
 
+This type shloud be used for complex query opertions.
+To execute any OData operation on a CDS data source, first create a `CDSDataSourceHandler` object passing a `Connection` object (that contains the CDS data source connection) and the namespace of the requested entity. 
+The following code sample shows how you can create a `CDSDataSourceHandler` object:
+```
+CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), req.getEntityMetadata().getNamespace());
+```
 
- 
- 
+The following code sample shows how you can create a Connection object that contains the CDS data source connection:
+```
+private static Connection getConnection() {
+  Connection conn = null;
+  InitialContext ctx;
+  try {
+    ctx = new InitialContext();
+    conn = ((DataSource) ctx.lookup("java:comp/env/jdbc/java-hdi-container")).getConnection();
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+  return conn;
+}
+```
 
+- Query Operation
+To implement the Query operation on a CDS data source, use the `CDSSelectQueryBuilder` and CDSQuery classes. The `CDSSelectQueryBuilder` class provides methods with which you can build the query and return it in a `CDSQuery` object. Use the `CDSDataSourceHandler` object to actually execute the query. The following is sample code that shows how you can implement it:
+
+```
+CDSQuery cdsQuery = new CDSSelectQueryBuilder("CatalogService.Books")
+            .top(2)
+            .skip(1)
+            .selectColumns("ID","title","stock")
+            .build();
+		CDSSelectQueryResult cdsSelectQueryResult = dsHandler.executeQuery(cdsQuery);
+```
+Uncomment the Operation Handler method which need to be extended 
+<p align="center"><img width="480" src="res/ECustomOpration3.png"> </p>
+
+Complete Code for After Read Book Entity is as follow. 
+```
+	@AfterRead(entity = "Books", serviceName = "CatalogService")
+	public ReadResponse afterReadBooks(ReadRequest req, ReadResponseAccessor res, ExtensionHelper helper) {
+		EntityData data = res.getEntityData();
+		//TODO: add your custom logic / validations here...
+		
+		try{
+		DataSourceHandler handler = helper.getHandler();
+		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), req.getEntityMetadata().getNamespace());
+		
+		CDSQuery cdsQuery = new CDSSelectQueryBuilder("CatalogService.Books")
+            .top(2)
+            .skip(1)
+            .selectColumns("ID","title","stock")
+            .build();
+		CDSSelectQueryResult cdsSelectQueryResult = dsHandler.executeQuery(cdsQuery);
+		data = cdsSelectQueryResult.getResult().get(0);
+		}
+		catch (Exception e) {
+			
+			log.error("Error in GetBook: " + e.getMessage());
+			// Return an instance of OperationResponse containing the error in
+			// case of failure
+			ErrorResponse errorResponse = ErrorResponse.getBuilder()
+					.setMessage(e.getMessage())
+					.setCause(e)
+					.response();
+
+			return ReadResponse.setError(errorResponse);
+		}
+		
+
+	//	return res.getOriginalResponse(); //use this API if no change is required and the original response can be returned as output.
+	return ReadResponse.setSuccess().setData(data).response(); //use this API if the payload is modified.
+		//return ReadResponse.setError(ErrorResponse.getBuilder().setMessage("Read Operation Failed").response()); //use this API if should return error response.
+	}
+```
+
+Detail document can be found in CDS
+
+For more complex Database operation JPA based opreation is also supported. Follow [Tutorial](https://developers.sap.com/tutorials/cp-apm-05-using-jpa.html) for same
 
 
 
