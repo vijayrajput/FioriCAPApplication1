@@ -3,7 +3,6 @@
   "definitions": {
     "CatalogService": {
       "kind": "service",
-      "@requires": "demouser",
       "@source": "srv/cat-service.cds"
     },
     "CatalogService.Authors": {
@@ -347,6 +346,7 @@
           "length": 5
         },
         "ID": {
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "ID",
           "key": true,
           "type": "cds.Integer"
@@ -496,11 +496,24 @@
         },
         "code": {
           "@Common.Label": "{i18n>CountryCode}",
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "CODE",
           "key": true,
           "type": "cds.String",
           "length": 3
         }
+      }
+    },
+    "CatalogService.GetBookDetails": {
+      "kind": "function",
+      "params": {
+        "id": {
+          "@cds.persistence.name": "ID",
+          "type": "cds.Integer"
+        }
+      },
+      "returns": {
+        "type": "CatalogService.Books"
       }
     },
     "CatalogService.Orders": {
@@ -1743,7 +1756,7 @@
           "@Common.Label": "{i18n>CurrencySymbol}",
           "@cds.persistence.name": "SYMBOL",
           "type": "cds.String",
-          "length": 2
+          "length": 5
         },
         "texts": {
           "@cds.persistence.name": "TEXTS",
@@ -2218,6 +2231,7 @@
           "length": 5
         },
         "ID": {
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "ID",
           "key": true,
           "type": "cds.Integer"
@@ -2500,6 +2514,7 @@
         },
         "code": {
           "@Common.Label": "{i18n>CountryCode}",
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "CODE",
           "key": true,
           "type": "cds.String",
@@ -2547,7 +2562,7 @@
           "@Common.Label": "{i18n>CurrencySymbol}",
           "@cds.persistence.name": "SYMBOL",
           "type": "cds.String",
-          "length": 2
+          "length": 5
         },
         "texts": {
           "@cds.persistence.name": "TEXTS",
@@ -2634,6 +2649,7 @@
         },
         "code": {
           "@Common.Label": "{i18n>CurrencyCode}",
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "CODE",
           "key": true,
           "type": "cds.String",
@@ -2762,6 +2778,7 @@
         },
         "code": {
           "@Common.Label": "{i18n>LanguageCode}",
+          "@cds.odata.v4.ignore": true,
           "@cds.persistence.name": "CODE",
           "key": true,
           "type": "cds.String",
@@ -2790,7 +2807,7 @@
     "csn": "1.0"
   },
   "meta": {
-    "creator": "CDS Compiler v1.19.2"
+    "creator": "CDS Compiler v1.20.3"
   },
   "$version": "1.0",
   "@sql_mapping": "plain"

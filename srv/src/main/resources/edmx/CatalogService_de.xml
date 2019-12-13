@@ -21,6 +21,9 @@
         <EntitySet Name="Countries" EntityType="CatalogService.Countries"/>
         <EntitySet Name="Countries_texts" EntityType="CatalogService.Countries_texts"/>
         <EntitySet Name="Orders" EntityType="CatalogService.Orders"/>
+        <FunctionImport Name="GetBookDetails" EntitySet="Books" ReturnType="CatalogService.Books" m:HttpMethod="GET">
+          <Parameter Name="id" Type="Edm.Int32" Mode="In" Nullable="true"/>
+        </FunctionImport>
         <AssociationSet Name="Books_author" Association="CatalogService.Books_author">
           <End Role="Books" EntitySet="Books"/>
           <End Role="Authors" EntitySet="Authors"/>

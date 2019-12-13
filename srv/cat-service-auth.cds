@@ -1,3 +1,3 @@
 using { CatalogService } from './cat-service';
 
-annotate CatalogService with @(requires: 'demouser');
+//annotate CatalogService with @(requires: 'demouser');
