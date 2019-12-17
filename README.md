@@ -321,17 +321,17 @@ annotate CatalogService with @(requires: 'demouser');
 
  - Extension Class can created by WebIDE Template
  - Right click on srv module and create `Entity Operation Hooks`
- <p align="center"><img width="480" src="res/ECustomOpration1.png"> </p> 
+ <p align="center"><img width="480" src="res/CustomOpration1.png"> </p> 
 
 - Choose Entity which need to be extended 
- <p align="center"><img width="480" src="res/ECustomOpration2.png"> </p> 
+ <p align="center"><img width="480" src="res/CustomOpration2.png"> </p> 
+ 
+- This will generate new Java Class [BooksHooksHandler.java](srv/src/main/java/com/shell/cds/demo/handlers/catalogservice/BooksHooksHandler.java) for Handling Extension for Book Entity
 
 #### Extension via DataSourceHandler
 
 This type of Extension is for doing simple database operation like insert, Delete, Read , Update with Entity Key
-Let's create OData Function to read Book data from BookId.
-
-This will generate new Java Class [BooksHooksHandler.java](srv/src/main/java/com/shell/cds/demo/handlers/catalogservice/BooksHooksHandler.java) for Handling Extension for Book Entity
+- Let's create OData Function to read Book data from BookId.
 
 - Update Catalog Service CDS model to include function defination in file  [cat-service.cds](srv/cat-service.cds)
 
@@ -386,9 +386,9 @@ run srv with following URL
 /odata/v2/CatalogService/GetBookDetails?id=123
 ```
 
-Detail operation support from DataSourceHandler is provided in [SCP Cloud SDK  API help](https://help.sap.com/doc/95d074a0671142da8dde4e6a29e622a9/Cloud/en-US/index.html?com/sap/cloud/sdk/service/prov/api/annotations/package-summary.html)
+Detail operation support from DataSourceHandler is provided in [SCP Cloud SDK  API help](https://help.sap.com/doc/95d074a0671142da8dde4e6a29e622a9/Cloud/en-US/com/sap/cloud/sdk/service/prov/api/DataSourceHandler.html)
 
-More details operation details are provide in CAP documentation ???
+More details operation details are provide in CAP documentation - Coming soon
 
 
 #### Extension via CDSDataSourceHandler
@@ -427,7 +427,7 @@ CDSQuery cdsQuery = new CDSSelectQueryBuilder("CatalogService.Books")
 		CDSSelectQueryResult cdsSelectQueryResult = dsHandler.executeQuery(cdsQuery);
 ```
 Uncomment the Operation Handler method which need to be extended 
-<p align="center"><img width="480" src="res/ECustomOpration3.png"> </p>
+<p align="center"><img width="480" src="res/CustomOpration3.png"> </p>
 
 Complete Code for After Read Book Entity is as follow. 
 ```
