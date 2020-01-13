@@ -18,8 +18,10 @@ modules:
           forwardAuthToken: true
           name: srv_api
           url: '~{url}'
-      - name: FioriCAPApplication1-uaa
+      - name: FioriCAPApplication1-uaa3
       - name: FioriCAPApplication1-portal
+    properties:
+      TENANT_HOST_PATTERN: '^(.*)-dev-fioricapapplication1-approuter.cfapps.eu10.hana.ondemand.com'
   - name: FioriCAPApplication1_ui_deployer
     type: com.sap.html5.application-content
     path: FioriCAPApplication1_ui_deployer
@@ -52,7 +54,7 @@ modules:
       - name: FioriCAPApplication1-db-hdi-container
         properties:
           JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
-      - name: FioriCAPApplication1-uaa
+      - name: FioriCAPApplication1-uaa3
   - name: booklist
     type: html5
     path: booklist
@@ -77,7 +79,7 @@ modules:
       buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
     requires:
       - name: FioriCAPApplication1-portal
-      - name: FioriCAPApplication1-uaa
+      - name: FioriCAPApplication1-uaa3
       - name: FioriCAPApplication1_html5_repo_host
       - name: FioriCAPApplication1_ui_deployer
 resources:
@@ -95,10 +97,10 @@ resources:
     type: com.sap.xs.hdi-container
     properties:
       hdi-container-name: '${service-name}'
-  - name: FioriCAPApplication1-uaa
+  - name: FioriCAPApplication1-uaa3
     type: org.cloudfoundry.existing-service
     parameters:
-      service-name: FioriCAPApplication1-uaa
+      service-name: FioriCAPApplication1-uaa3
   - name: FioriCAPApplication1-portal
     parameters:
       service-plan: standard
