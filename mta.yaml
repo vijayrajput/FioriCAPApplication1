@@ -2,7 +2,7 @@ ID: FioriCAPApplication1
 _schema-version: '2.1'
 parameters:
   deploy_mode: html5-repo
-version: 0.1.3
+version: 0.1.4
 modules:
   - name: FioriCAPApplication1_appRouter
     type: approuter.nodejs
@@ -20,8 +20,10 @@ modules:
           url: '~{url}'
       - name: FioriCAPApplication1-uaa3
       - name: FioriCAPApplication1-portal
+      - name: FioriCAPApplication1-saas3
     properties:
       TENANT_HOST_PATTERN: '^(.*)-dev-fioricapapplication1-approuter.cfapps.eu10.hana.ondemand.com'
+      SAP_JWT_TRUST_ACL: [ {"clientid":"*","identityzone":"sap-provisioning"} ]
   - name: FioriCAPApplication1_ui_deployer
     type: com.sap.html5.application-content
     path: FioriCAPApplication1_ui_deployer
@@ -106,3 +108,7 @@ resources:
       service-plan: standard
       service: portal
     type: org.cloudfoundry.managed-service
+  - name: FioriCAPApplication1-saas3
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: FioriCAPApplication1-saas3    
