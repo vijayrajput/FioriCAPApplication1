@@ -8,7 +8,7 @@
 	"license": "Apache-2.0",
 	"author": "Portal Team",
 	"dependencies": {
-		"@sap/portal-cf-content-deployer": "3.18.0-20190911111653"
+		"@sap/portal-cf-content-deployer": "3.24.0-20191119141917"
 	},
 	"scripts": {
 		"start": "node --harmony node_modules/@sap/portal-cf-content-deployer/src/index.js"

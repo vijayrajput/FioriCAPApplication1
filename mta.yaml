@@ -2,7 +2,7 @@ ID: FioriCAPApplication1
 _schema-version: '2.1'
 parameters:
   deploy_mode: html5-repo
-version: 0.1.4
+version: 0.1.5
 modules:
   - name: FioriCAPApplication1_appRouter
     type: approuter.nodejs
@@ -79,6 +79,8 @@ modules:
       stack: cflinuxfs3
       memory: 128M
       buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
+    properties:
+      TENANT_HOST_PATTERN: '^(.*)-dev-fioricapapplication1-approuter.cfapps.eu10.hana.ondemand.com'
     requires:
       - name: FioriCAPApplication1-portal
       - name: FioriCAPApplication1-uaa3
