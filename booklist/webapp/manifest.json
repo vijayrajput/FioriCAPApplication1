@@ -35,7 +35,12 @@
 					},
 					"semanticObject": "books",
 					"action": "display",
-					"title": ""
+					"title": "Books",
+					"subTitle": "Check_Books",
+					"icon": "sap-icon://course-book",
+					"indicatorDataSource": {
+						"dataSource": ""
+					}
 				}
 			}
 		}
@@ -168,8 +173,6 @@
 		"uri": ""
 	},
 	"sap.platform.cf": {
-        "oAuthScopes": [
-            "$XSAPPNAME.demouser"
-        ]
-    }
+		"oAuthScopes": ["$XSAPPNAME.demouser"]
+	}
 }

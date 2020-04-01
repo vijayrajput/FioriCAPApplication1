@@ -2,14 +2,17 @@ ID: FioriCAPApplication1
 _schema-version: '2.1'
 parameters:
   deploy_mode: html5-repo
-version: 0.1.5
+version: 0.1.63
 modules:
   - name: FioriCAPApplication1_appRouter
     type: approuter.nodejs
     path: FioriCAPApplication1_appRouter
     parameters:
       disk-quota: 256M
+      keep-existing-routes: true
       memory: 256M
+      routes:
+        - route: ${org}-${space}-fioricapapplication1-approuter.${default-domain}
     requires:
       - name: FioriCAPApplication1_html5_repo_runtime
       - name: srv_api
@@ -18,12 +21,12 @@ modules:
           forwardAuthToken: true
           name: srv_api
           url: '~{url}'
-      - name: FioriCAPApplication1-uaa3
+      - name: FioriCAPApplication1-uaa
       - name: FioriCAPApplication1-portal
-      - name: FioriCAPApplication1-saas3
+      - name: FioriCAPApplication1-saas
     properties:
-      TENANT_HOST_PATTERN: '^(.*)-dev-fioricapapplication1-approuter.cfapps.eu10.hana.ondemand.com'
-      SAP_JWT_TRUST_ACL: [ {"clientid":"*","identityzone":"sap-provisioning"} ]
+      TENANT_HOST_PATTERN: ^(.*)-${space}-fioricapapplication1-approuter.${default-domain}
+      SAP_JWT_TRUST_ACL: "[{\"clientid\":\"*\",\"identityzone\":\"sap-provisioning\"}]" 
   - name: FioriCAPApplication1_ui_deployer
     type: com.sap.html5.application-content
     path: FioriCAPApplication1_ui_deployer
@@ -56,7 +59,7 @@ modules:
       - name: FioriCAPApplication1-db-hdi-container
         properties:
           JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
-      - name: FioriCAPApplication1-uaa3
+      - name: FioriCAPApplication1-uaa
   - name: booklist
     type: html5
     path: booklist
@@ -80,12 +83,13 @@ modules:
       memory: 128M
       buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
     properties:
-      TENANT_HOST_PATTERN: '^(.*)-dev-fioricapapplication1-approuter.cfapps.eu10.hana.ondemand.com'
+      TENANT_HOST_PATTERN: ^(.*)-${space}-fioricapapplication1-approuter.${default-domain}
     requires:
       - name: FioriCAPApplication1-portal
-      - name: FioriCAPApplication1-uaa3
+      - name: FioriCAPApplication1-uaa
       - name: FioriCAPApplication1_html5_repo_host
       - name: FioriCAPApplication1_ui_deployer
+      - name: FioriCAPApplication1-saas
 resources:
   - name: FioriCAPApplication1_html5_repo_runtime
     parameters:
@@ -101,16 +105,27 @@ resources:
     type: com.sap.xs.hdi-container
     properties:
       hdi-container-name: '${service-name}'
-  - name: FioriCAPApplication1-uaa3
-    type: org.cloudfoundry.existing-service
+  - name: FioriCAPApplication1-uaa
+    type: org.cloudfoundry.managed-service
     parameters:
-      service-name: FioriCAPApplication1-uaa3
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
   - name: FioriCAPApplication1-portal
     parameters:
       service-plan: standard
       service: portal
     type: org.cloudfoundry.managed-service
-  - name: FioriCAPApplication1-saas3
-    type: org.cloudfoundry.existing-service
+  - name: FioriCAPApplication1-saas
+    type: org.cloudfoundry.managed-service
     parameters:
-      service-name: FioriCAPApplication1-saas3    
+      service: saas-registry
+      service-plan: application
+      config:
+        xsappname: FioriCAPApplication1-uaa3
+        appUrls:
+          onSubscription: https://${org}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://${org}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/dependencies
+        category: SCP CF Demo - ${org}-${space}
+        description: Demo Fiori - 6  ${org}-${space}
+        displayName: Multitenant Demo fiori Application 6 from org :${org} and Space:${space} - 6
