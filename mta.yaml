@@ -1,18 +1,21 @@
 ID: FioriCAPApplication1
-_schema-version: '2.1'
+_schema-version: 3.3.0
 parameters:
   deploy_mode: html5-repo
-version: 0.1.63
+  provider-subaccount : "dbs-emea-north-cfdev2"
+  consumer-subaccount : "cp-integration"
+  env : "Development"
+version: 0.1.64
 modules:
   - name: FioriCAPApplication1_appRouter
     type: approuter.nodejs
     path: FioriCAPApplication1_appRouter
     parameters:
       disk-quota: 256M
-      keep-existing-routes: true
       memory: 256M
       routes:
-        - route: ${org}-${space}-fioricapapplication1-approuter.${default-domain}
+        - route: ${provider-subaccount}-${space}-fioricapapplication1-approuter.${default-domain}
+        - route: ${consumer-subaccount}-${space}-fioricapapplication1-approuter.${default-domain}
     requires:
       - name: FioriCAPApplication1_html5_repo_runtime
       - name: srv_api
@@ -124,8 +127,8 @@ resources:
       config:
         xsappname: FioriCAPApplication1-uaa3
         appUrls:
-          onSubscription: https://${org}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
-          getDependencies: https://${org}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/dependencies
-        category: SCP CF Demo - ${org}-${space}
+          onSubscription: https://${provider-subaccount}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://${provider-subaccount}-${space}-fioricapapplication1-approuter.${default-domain}/callback/v1.0/dependencies
+        category: SCP CF Demo - ${env}
         description: Demo Fiori - 6  ${org}-${space}
         displayName: Multitenant Demo fiori Application 6 from org :${org} and Space:${space} - 6
